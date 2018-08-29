@@ -21,5 +21,5 @@ scale_color_rki()
 ```
 ![](inst/doc/example_plot.png)
 
-
-For more info see the [rkicolor Vignette](inst/doc/rkicolors-vignette.html).
+## Package Vignette
+For more info see the [rkicolor Vignette](https://lekroll.github.io/rkicolors/inst/doc/rkicolors-vignette.html).
