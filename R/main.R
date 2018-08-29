@@ -96,7 +96,7 @@ rki_cols <- function(...) {
 
   rki_colors[cols]
 }
-
+#' @export
 # Palette Definition
 rki_palettes <- list(
   `main`        = rki_cols("blue", "light blue"),
