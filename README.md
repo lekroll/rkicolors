@@ -24,3 +24,6 @@ scale_color_rki()
 
 ## Package Vignette
 For more info see the [rkicolor Vignette](https://lekroll.github.io/rkicolors/inst/doc/rkicolors-vignette.html).
+
+## Acknowledgement
+This package is based on a design proposed by  Simon Jackson [@drsimonj](https://twitter.com/drsimonj). [Original proposal](https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2),
