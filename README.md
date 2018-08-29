@@ -12,7 +12,8 @@ library("rkicolor")
 library("ggplot2")
 library("extrafont")
 
-ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   
+ggplot(iris, aes(Sepal.Width, Sepal.Length, 
+                 color = Species)) +   
 geom_point() + 
 theme_rki(base_family="ScalaSansLF-Regular", 
           bold_family="ScalaSansLF-Bold", 
