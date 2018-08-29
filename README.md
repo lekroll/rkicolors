@@ -11,8 +11,12 @@ devtools::install_github("lekroll/rkicolors")
 library("rkicolor")
 library("ggplot2")
 library("extrafont")
-ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() + 
-theme_rki(base_family="ScalaSansLF-Regular", bold_family="ScalaSansLF-Bold", base_size = 10) +
+
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   
+geom_point() + 
+theme_rki(base_family="ScalaSansLF-Regular", 
+          bold_family="ScalaSansLF-Bold", 
+          base_size = 10) +
 scale_color_rki()
 ```
 ![](inst/doc/example_plot.png)
