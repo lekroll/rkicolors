@@ -1,0 +1,16 @@
+Package: rkicolors
+Type: Package
+Title: Unofficial Theme and Color Palettes for Plots based on RKI Corporate Designs
+Version: 0.1.0
+Author: Dr. Lars E. Kroll
+Maintainer: Dr. Lars E. Kroll <l.kroll@rki.de>
+Description: The Package applies a RKI-like theme to a ggplot2 plot and also includes different color/fill palettes based on the RKI Corporate Design.
+License: MIT
+Encoding: UTF-8
+LazyData: false
+Imports:
+  ggplot2
+RoxygenNote: 6.1.0
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
