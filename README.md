@@ -4,7 +4,18 @@ This unofficial R Package applies a RKI-like theme to a ggplot2 plot and also in
 ## Installation
 ```R
 devtools::install_github("lekroll/rkicolors")
-library(rkicolors)
 ```
+
+## Example
+```R
+library("rkicolor")
+library("ggplot2")
+library("extrafont")
+ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() + 
+theme_rki(base_family="ScalaSansLF-Regular", bold_family="ScalaSansLF-Bold", base_size = 10) +
+scale_color_rki()
+```
+![](inst/doc/example_plot.png)
+
 
 For more info see the [rkicolor Vignette](inst/doc/rkicolors-vignette.html).
