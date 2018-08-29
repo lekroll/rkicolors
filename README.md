@@ -6,6 +6,9 @@ This unofficial R Package applies a RKI-like theme to a ggplot2 plot and also in
 devtools::install_github("lekroll/rkicolors")
 ```
 
+## Package Vignette
+For more info see the [rkicolor Vignette](https://lekroll.github.io/rkicolors/inst/doc/rkicolors-vignette.html).
+
 ## Example
 ```R
 library("rkicolor")
@@ -21,9 +24,6 @@ theme_rki(base_family="ScalaSansLF-Regular",
 scale_color_rki()
 ```
 ![](inst/doc/example_plot.png)
-
-## Package Vignette
-For more info see the [rkicolor Vignette](https://lekroll.github.io/rkicolors/inst/doc/rkicolors-vignette.html).
 
 ## Acknowledgement
 This package is based on a design proposed by  Simon Jackson [@drsimonj](https://twitter.com/drsimonj). [Original proposal](https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2),
