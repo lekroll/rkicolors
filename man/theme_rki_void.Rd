@@ -4,7 +4,7 @@
 \alias{theme_rki_void}
 \title{RKI Theme without axis and labels based on theme_rki() optimal suited to print maps.}
 \usage{
-theme_rki_void(base_size = 12, base_family = "")
+theme_rki_void(base_size = 12, base_family = "", bold_family = "")
 }
 \arguments{
 \item{Define}{a base_size (Defaults to 12) and base_family for Fonts used (defaults to ggplot2's defaults)}

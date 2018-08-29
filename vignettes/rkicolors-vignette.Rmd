@@ -1,9 +1,9 @@
 ---
-title: "Unofficial Theme and Color Palettes for Plots based on RKI Corporate Designs"
+title: "rkicolors - Unofficial Themes and Color Palettes for Plots based on the RKI Corporate Designs for R and ggplot2"
 author: "Dr. Lars E. Kroll"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-fig_caption: yes
+fig_caption: no
 fig_width: 6 
 fig_height: 4 
 vignette: >
@@ -26,13 +26,16 @@ The package Vignette for the package `rkicolors` is a simple documentation on ho
 Part of the package are two ggplot themes (`theme_rki()` and `theme_rki_void()`) as well as two ggplot scales (`scale_fill_rki()` and `scale_color_rki()`). The theme includes various color palettes based on the RKI corporate color ported to RGB. 
 
 
-## Libraries used for this vignette
+## Basic Libraries used for this Vignette
 
 ```{r, warning=FALSE}
 library(devtools)
 library(httr)
 library(ggplot2)
 library(dplyr)
+library(extrafont)
+library(maps)
+library(mapdata)
 ```
 
 
@@ -40,7 +43,7 @@ library(dplyr)
 
 Note: This guide assumes that you are behind a corporate firewall with a proxy server. If you are not, you might skip the `httr` Proxy Configuration.
 
-```{r}
+```{r, eval=FALSE}
 myproxy <- Sys.getenv("http_proxy")
 httr::set_config(httr::use_proxy(myproxy))
 devtools::install_github("lekroll/rkicolors")
@@ -51,20 +54,25 @@ devtools::install_github("lekroll/rkicolors")
 library(rkicolors)
 ```
 
-```{r,  fig.cap = "Plot 1: Sample Application using iris dataset without customization", fig.height = 4, fig.width = 6, fig.align ="left"}
-ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() +  theme_rki() + scale_color_rki()
-```
-Change the colors to a different, RKI based Palette:
-```{r,  fig.cap = "Plot 2: Sample Application with color customization", fig.height = 4, fig.width = 6, fig.align ="left"}
-ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() +  theme_rki() + scale_color_rki("qualitative")
+```{r,  fig.height = 4, fig.width = 6, fig.align ="left"}
+sampleplot <- ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() 
+sampleplot
 ```
 
-## Expert Usage
+
+```{r,   fig.height = 4, fig.width = 6, fig.align ="left"}
+sampleplot +  theme_rki() + scale_color_rki()
+```
+Change the colors to a different, RKI based Palette:
+```{r,  fig.height = 4, fig.width = 6, fig.align ="left"}
+sampleplot +  theme_rki() + scale_color_rki("qualitative")
+```
+
+## Using the right fonts
 Apply the RKI Corporate "ScalaSans" Fonts to the Plot if they are available on the local machine. Note `font_import()` may take a while, depending on the number of fonts installed on the local machine. As a limitation, only True Type Fonts are acceptable by `extrafont`. 
 
 Check if Scala is available:
 ```{r, warning=FALSE}
-library(extrafont)
 # uncomment only on first run
 # font_import(prompt = FALSE) 
 # loadfonts() 
@@ -73,24 +81,38 @@ fonttable() %>% as.data.frame() %>% filter(grepl("Scala", FullName)) %>% select(
 
 Apply font to theme:
 
-```{r,  fig.cap = "Plot 3: Sample Application with color customization and RKI Font", fig.height = 4, fig.width = 6, fig.align ="left"}
-ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   
-  geom_point() +  
+```{r,   fig.height = 4, fig.width = 6, fig.align ="left"}
+sampleplot +  
   theme_rki(base_family="ScalaSansLF-Regular", bold_family="ScalaSansLF-Bold", base_size = 10) + 
   scale_color_rki("qualitative")
 ```
 
-Apply theme to every new plot in a Session:
-```{r,  fig.cap = "Plot 4: Sample Application with color customization and RKI Font", fig.height = 4, fig.width = 6, fig.align ="left"}
-theme_set(theme_rki(base_family="ScalaSansLF-Regular", bold_family="ScalaSansLF-Bold", base_size = 10))
-ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() + scale_color_rki()
+## Color Options
+The color schemes below can be applied using `scale_fill_rki(COLOR_SCHEME_NAME)`. If the fill or color variable is not discrete, `scale_fill_rki(COLOR_SCHEME_NAME, discrete=FALSE)` has to be used.
+
+
+```{r,  fig.height = 1, fig.width = 6, fig.align ="left", echo=FALSE}
+explot <- as.data.frame(cbind("x"=seq(1:128),"y"=1)) %>%
+  ggplot(.,aes(x=x,y=y,fill=x)) + geom_bar(stat="identity",width=1) + 
+  theme_rki_void(bold_family="ScalaSansLF-Bold") + guides(fill=FALSE)
+for (rkicolorsheme in names(rkicolors::rki_palettes)) {
+  myplot <- explot + geom_text(aes(x=20,y=.5, label=paste(rkicolorsheme)),size=4,hjust="left",color="white") + 
+          scale_fill_rki(paste(rkicolorsheme), discrete = FALSE)
+  print(myplot)
+}
 ```
 
-## Plot Maps using RKI Theme
+## Working with continous outcomes
+To apply the scales to continous outcomes, the parameter `discrete=FALSE` has to bet used:
+```{r,  fig.height = 4, fig.width = 6, fig.align ="left"}
+ggplot(iris, aes(y=Sepal.Width, x=Sepal.Length,color=Sepal.Width)) +   geom_jitter(size=3) +  guides(color=FALSE)+theme_rki(base_family = "ScalaSansLF-Regular",bold_family = "ScalaSansLF-Bold") + scale_color_rki("bluered",discrete=FALSE) + facet_grid(cols = vars(Species))
+```
+
+
+
+## Plot Maps
 ```{r ,fig.height = 4, fig.width = 6, fig.align ="left", warning=FALSE}
-library(maps)
-library(mapdata)
-worldmap.df <- map_data("world2") %>% filter(region!="Antarctica")
+worldmap.df <- map_data("world") %>% filter(region!="Antarctica")
 map <- ggplot(data = worldmap.df) + 
   geom_polygon(aes(x = long, y = lat, group = group, fill="All"), color = "white") + 
   coord_fixed() +   guides(fill=FALSE)  + 
@@ -100,3 +122,9 @@ map
 map + theme_rki_void()
 ```
 
+
+## Apply theme to every new plot in a Session:
+```{r,   fig.height = 4, fig.width = 6, fig.align ="left"}
+theme_set(theme_rki(base_family="ScalaSansLF-Regular", bold_family="ScalaSansLF-Bold", base_size = 10))
+sampleplot + scale_color_rki()
+```

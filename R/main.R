@@ -1,36 +1,6 @@
 #' RKI Theme based on theme_grey
 #'
-#' @param Define a base_size (Defaults to 12) and base_family for Fonts used (defaults to ggplot2's defaults)
-#' @keywords theme
-#' @export
-#' @examples
-#' ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() +  theme_rki()
-#'
-
-theme_rki <- function (base_size=12, base_family = "") {
-  theme_grey() +
-    theme(plot.margin = margin(.5, .5, .5, .5, "cm"),
-          text=element_text(face="plain"),
-          panel.grid.major.x = element_blank(),
-          panel.grid.major.y = element_line(colour=  rgb(209/255,209/255,209/255)) ,
-          panel.background = element_rect(fill=NA),
-          strip.background = element_rect(fill=NA),
-          strip.text = element_text(face="plain",  size = rel(1.1)),
-          plot.title = element_text(size = rel(1.2)),
-          axis.title = element_text(size = rel(1.1)),
-          axis.title.x = element_text(vjust=-1),
-          axis.title.y = element_text(vjust=2),
-          axis.text =  element_text(colour="black", size = rel(1.0)),
-          axis.line = element_line(colour="black", size = 0.3 ) ,
-          axis.ticks.length = unit(.25, "cm") ,
-          legend.key = element_blank(),
-          legend.title = element_text(face="plain", size = rel(1.0)))
-}
-
-
-#' RKI Theme based on theme_grey
-#'
-#' @param Define a base_size (Defaults to 12) and base_family for Fonts used (defaults to ggplot2's defaults)
+#' @param Define a base_size (Defaults to 12) and base_family and bold_family for Fonts used (defaults to ggplot2's defaults)
 #' @keywords theme
 #' @export
 #' @examples
@@ -40,14 +10,18 @@ theme_rki <- function (base_size=12, base_family = "") {
 theme_rki <- function (base_size=12, base_family = "", bold_family="") {
   theme_grey(base_size=base_size,base_family=base_family) +
     theme(plot.margin = margin(.5, .5, .5, .5, "cm"),
-          text=element_text(face="plain"),
+          text=element_text(family=base_family, face="plain"),
+          title=element_text(family=bold_family, face="plain"),
           panel.grid.major.x = element_blank(),
           panel.grid.major.y = element_line(colour=  rgb(209/255,209/255,209/255)) ,
           panel.background = element_rect(fill=NA),
           strip.background = element_rect(fill=NA),
           strip.text = element_text(family=bold_family, face="plain", size = rel(1.1)),
           plot.title = element_text(family=bold_family, face="plain", size = rel(1.2)),
+          plot.subtitle = element_text(family=bold_family, face="plain", size = rel(1.2)),
           axis.title = element_text(family=bold_family, lineheight = 1.15, face="plain",  size = rel(1.1)),
+          axis.title.x = element_text(vjust=-1),
+          axis.title.y = element_text(vjust=2),
           axis.text =  element_text(colour="black", size = rel(1.0)),
           axis.line = element_line(colour="black", size = 0.3 ) ,
           axis.ticks.length = unit(.25, "cm") ,
@@ -64,11 +38,13 @@ theme_rki <- function (base_size=12, base_family = "", bold_family="") {
 #' ggplot(iris, aes(Sepal.Width, Sepal.Length, color = Species)) +   geom_point() +  theme_rki_void()
 #'
 
-theme_rki_void <- function (base_size=12, base_family = "") {
-  theme_rki() +
+theme_rki_void <- function (base_size=12, base_family = "", bold_family="") {
+  theme_rki(bold_family=bold_family,base_family=base_family,base_size=base_size) +
     theme(panel.grid.major.y = element_blank(),
           axis.title = element_blank(),
           axis.text =  element_blank(),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
           axis.line = element_blank(),
           axis.ticks = element_blank())
 }
