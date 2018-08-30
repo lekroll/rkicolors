@@ -26,4 +26,4 @@ scale_color_rki()
 ![](inst/doc/example_plot.png)
 
 ## Acknowledgement
-This package is based on a design proposed by  Simon Jackson [@drsimonj](https://twitter.com/drsimonj). [Original proposal](https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2),
+This package is based on a design proposed by  Simon Jackson [@drsimonj](https://twitter.com/drsimonj). For more Infos please see the [Original proposal](https://drsimonj.svbtle.com/creating-corporate-colour-palettes-for-ggplot2).
